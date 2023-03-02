@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSM.Calc2.UI", "LSM.Calc2.UI\LSM.Calc2.UI.csproj", "{4030E039-B07E-4792-996E-04B8483C6DBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4030E039-B07E-4792-996E-04B8483C6DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4030E039-B07E-4792-996E-04B8483C6DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4030E039-B07E-4792-996E-04B8483C6DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4030E039-B07E-4792-996E-04B8483C6DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E304033-DF0A-4849-BD41-17C4F0C5EA03}
+	EndGlobalSection
+EndGlobal
