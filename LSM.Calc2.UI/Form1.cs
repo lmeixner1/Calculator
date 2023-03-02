@@ -2,129 +2,170 @@ namespace LSM.Calc2.UI
 {
     public partial class Form1 : Form
     {
-        public string digit1 = String.Empty;
-        public string digit2 = String.Empty;
-        public bool isDigit1Set = false;
+        public double num1;
+        public double num2;
         public string op;
         public string lastOp;
-        
+        public bool usedOp = false;
+        public bool equalHit = false;
+        public bool isNum1Set = false;
+
         public Form1()
         {
             InitializeComponent();
         }
 
         Calculator userCalc = new Calculator();
-        private void digit_Click(object sender, EventArgs e) 
+
+        private void digit_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
 
-            if(!isDigit1Set)
+
+
+            if (usedOp)
             {
-                digit1 += button.Text;
-                txtResult.Text = digit1;
-                isDigit1Set= true;
+                lblResult.Text = string.Empty;
+                usedOp = false;
             }
-            else 
-            {
-                digit2 += button.Text;
-                txtResult.Text = digit2;
-            }
-          
+
+            lblResult.Text += button.Text;
+
         }
 
-        private void op_Click (object sender, EventArgs e) 
-        { 
+
+
+        private void op_Click(object sender, EventArgs e)
+        {
             Button button = (Button)sender;
-            if (button.Text == "(+/-)")
+
+            double digitValue;
+
+            if (usedOp)
             {
-
-                if (digit2 == String.Empty)
-                {
-                    double.TryParse(digit1, out double num1);
-                    num1 = userCalc.sign(num1);
-                    digit1 = num1.ToString();
-                    txtResult.Text = digit1;
-                }
-                else
-                {
-                    double.TryParse(digit2, out double num2);
-                    num2 = userCalc.sign(num2);
-                    digit2 = num2.ToString();
-                    if (num2 > 0)
-                    {
-                        string equation = txtResult.Text.Substring(0, txtResult.Text.Length - 2);
-                        txtResult.Text = equation + digit2;
-                    }
-                    else
-                    {
-                        string equation = txtResult.Text.Substring(0, txtResult.Text.Length - 1);
-                        txtResult.Text = equation + digit2;
-                    }
-                   
-                }
-
+                lblResult.Text = string.Empty;
+                usedOp = false;
             }
+
+            if (double.TryParse(lblResult.Text, out digitValue))
+            {
+                if (!isNum1Set)
+                {
+                    op = button.Text;
+                    num1 = digitValue;
+                    lblResult.Text = num1.ToString();
+                    isNum1Set = true;
+                    lblResult.Text = string.Empty;
+                }
+            }
+
             else
             {
                 op = button.Text;
-            txtResult.Text += op;
+                lblResult.Text += op;
+                isNum1Set = true;
 
-            if (button.Text == "1/x")
-            {
-                txtResult.Text = "1/" + digit1;
+                if (button.Text == "1/x")
+                {
+                    lblResult.Text = "1/" + num1.ToString();
+                }
             }
-            }
-            
+            usedOp = true;
+            // MessageBox.Show(num1.ToString());
+
+
         }
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
+            double digitValue;
+
+
+            if (!equalHit)
+            {
+                if (double.TryParse(lblResult.Text, out digitValue))
+                {
+
+                    num2 = digitValue;
+                    lblResult.Text = num2.ToString();
+                    lblResult.Text = string.Empty;
+                    equalHit = true;
+                }
+            }
+
+            //MessageBox.Show(num2.ToString());
+
             double result;
             lastOp = op;
-            double.TryParse(digit1, out double num1);
-            double.TryParse(digit2, out double num2);
-            MessageBox.Show(num1.ToString());
-            MessageBox.Show(num2.ToString());
+            lblResult.Text = string.Empty;
             switch (op)
             {
                 case "+":
                     result = userCalc.add(num1, num2);
-                    txtResult.Text = result.ToString();                 
+                    lblResult.Text = result.ToString();
                     break;
                 case "-":
                     result = userCalc.subtract(num1, num2);
-                    txtResult.Text = result.ToString();
+                    lblResult.Text = result.ToString();
                     break;
                 case "*":
                     result = userCalc.multiply(num1, num2);
-                    txtResult.Text = result.ToString();
+                    lblResult.Text = result.ToString();
                     break;
                 case "/":
                     result = userCalc.divide(num1, num2);
-                    txtResult.Text = result.ToString();
+                    lblResult.Text = result.ToString();
                     break;
                 case "Sqrt":
                     result = userCalc.sqrt(num1);
-                    txtResult.Text = result.ToString();
+                    lblResult.Text = result.ToString();
                     break;
                 case "1/x":
                     result = userCalc.reciprocal(num1);
 
-                    txtResult.Text = result.ToString();
+                    lblResult.Text = result.ToString();
                     break;
-                default: 
-                    result = 0; 
+                default:
+                    result = 0;
                     break;
             }
-            digit1 = result.ToString();
+            num1 = result;
         }
 
+        private void negative_Click(object sender, EventArgs e)
+        {
+            double negative = 0;
+            if (double.TryParse(lblResult.Text, out negative))
+            {
+                negative = negative * -1;
+                lblResult.Text = negative.ToString();
+            }
+        }
+
+        private void decimal_Click (object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+
+            if (button.Text == ".")
+            {
+                if (!lblResult.Text.Contains("."))
+                {
+                    lblResult.Text += button.Text;
+                }
+            }
+            else
+            {
+                lblResult.Text += button.Text;
+            }
+        }
         private void btnClear_Click(object sender, EventArgs e)
         {
-            txtResult.Text = String.Empty;
-            digit1 = String.Empty;
-            digit2= String.Empty;
-            isDigit1Set = false;
+            lblResult.Text = String.Empty;
+            num1 = 0;
+            num2 = 0;
+            isNum1Set = false;
+            equalHit = false;
+            usedOp = false;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -132,16 +173,16 @@ namespace LSM.Calc2.UI
             string equation = " ";
             try
             {
-                equation = txtResult.Text.Substring(0, txtResult.Text.Length - 1);
-                txtResult.Text = equation;
+                equation = lblResult.Text.Substring(0, lblResult.Text.Length - 1);
+                lblResult.Text = equation;
             }
             catch (ArgumentOutOfRangeException ex)
             {
 
-                txtResult.Text = "Err: Use Clear Button";
+                lblResult.Text = "Err: Use Clear Button";
             }
-            digit2 = String.Empty;
-            
+            num2 = 0;
+
         }
     }
 }

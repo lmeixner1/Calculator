@@ -49,7 +49,7 @@
             this.button19 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
-            this.txtResult = new System.Windows.Forms.TextBox();
+            this.lblResult = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn7
@@ -180,6 +180,7 @@
             this.button13.TabIndex = 12;
             this.button13.Text = ".";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.decimal_Click);
             // 
             // button14
             // 
@@ -219,7 +220,7 @@
             this.button17.TabIndex = 16;
             this.button17.Text = "(+/-)";
             this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.op_Click);
+            this.button17.Click += new System.EventHandler(this.negative_Click);
             // 
             // btn0
             // 
@@ -261,19 +262,21 @@
             this.button21.UseVisualStyleBackColor = true;
             this.button21.Click += new System.EventHandler(this.digit_Click);
             // 
-            // txtResult
+            // lblResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(4, 2);
-            this.txtResult.Name = "txtResult";
-            this.txtResult.Size = new System.Drawing.Size(244, 23);
-            this.txtResult.TabIndex = 21;
+            this.lblResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblResult.Location = new System.Drawing.Point(6, 1);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.Size = new System.Drawing.Size(254, 27);
+            this.lblResult.TabIndex = 22;
+            this.lblResult.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(269, 264);
-            this.Controls.Add(this.txtResult);
+            this.Controls.Add(this.lblResult);
             this.Controls.Add(this.button21);
             this.Controls.Add(this.button20);
             this.Controls.Add(this.button19);
@@ -298,7 +301,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -325,6 +327,6 @@
         private Button button19;
         private Button button20;
         private Button button21;
-        private TextBox txtResult;
+        private Label lblResult;
     }
 }
